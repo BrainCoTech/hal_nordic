@@ -30,6 +30,7 @@ NOTICE: This file has been modified by Nordic Semiconductor ASA.
 #include "nrf52_erratas.h"
 #include "system_nrf52.h"
 #include "system_nrf52_approtect.h"
+#include "hal/nrf_gpio.h"
 
 #define __SYSTEM_CLOCK_64M      (64000000UL)
 
@@ -89,6 +90,8 @@ void SystemCoreClockUpdate(void)
 
 void SystemInit(void)
 {
+    nrf_gpio_cfg_output(NRF_GPIO_PIN_MAP(1,2));
+    nrf_gpio_pin_set(NRF_GPIO_PIN_MAP(1,2));
     /* Enable SWO trace functionality. If ENABLE_SWO is not defined, SWO pin will be used as GPIO (see Product
        Specification to see which one). */
     #if defined (ENABLE_SWO) && defined(CLOCK_TRACECONFIG_TRACEMUX_Pos)
